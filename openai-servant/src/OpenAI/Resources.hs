@@ -86,6 +86,7 @@ where
 import qualified Data.Aeson as A
 import qualified Data.ByteString.Lazy as BSL
 import Data.Maybe (catMaybes)
+import Data.OpenApi (Schema)
 import qualified Data.Text as T
 import qualified Data.Text.Encoding as T
 import Data.Time
@@ -258,14 +259,14 @@ instance A.ToJSON ChatMessage where
       [ "content" A..= content,
         "role" A..= role
       ] ++ catMaybes
-      [ ("function_call" A..=) <$> functionCall, 
+      [ ("function_call" A..=) <$> functionCall,
         ("name" A..=) <$> name
       ]
-      
+
 data ChatFunction = ChatFunction
   { chfName :: T.Text,
     chfDescription :: T.Text,
-    chfParameters :: A.Value
+    chfParameters :: Schema
   }
   deriving (Show, Eq)
 
